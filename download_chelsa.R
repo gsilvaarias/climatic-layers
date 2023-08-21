@@ -1,6 +1,6 @@
 #' Download CHELSA V_2.1 BIO dataset
 #'
-#' This function downloads CHELSA V_2.1 BIO climate layers (Karger et al., 2017) into a specified folder.
+#' This function downloads CHELSA V_2.1 BIO climate layers (Karger et al., 2018) into a specified folder.
 #' Adapted from Simon Kapitza's chelsa_get.R https://rdrr.io/github/kapitzas/WorldClimTiles/src/R/chelsa_get.R
 
 #' @importFrom utils download.file
@@ -17,8 +17,7 @@
 #' chelsa_get(target_path, vars)
 #'
 #' @references
-#' Karger, D., Conrad, O., Böhner, J. et al. Climatologies at high resolution for the earth’s land surface areas. Sci Data 4, 170122 (2017). https://doi.org/10.1038/sdata.2017.122
-
+#' Karger D.N., Conrad, O., Böhner, J., Kawohl, T., Kreft, H., Soria-Auza, R.W., Zimmermann, N.E, Linder, H.P., Kessler, M. (2018): Data from: Climatologies at high resolution for the earth’s land surface areas. EnviDat. https://doi.org/10.16904/envidat.228.v2.1
 
 download_chelsa = function(target_path=getwd(), vars="") 
 {
