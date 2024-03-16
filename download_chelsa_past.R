@@ -60,10 +60,13 @@ time_IDs <- data.frame(timeID = c(20,19,18,17,16,15,14,13,12,11,10,9,8,7,6,5,4,3
                     18.8,18.9,19,19.1,19.2,19.3,19.4,19.5,19.6,19.7,19.8,19.9,
                     20,20.1,20.2,20.3,20.4,20.5,20.6,20.7,20.8,20.9,21,21.1,
                     21.2,21.3,21.4,21.5,21.6,21.7,21.8,21.9,22))
-# file.path(getwd(),"CHELSA-TraCE21k") 
-download_chelsa_past = function(target_path=getwd(), vars="bio", yearago="") {
+ 
+download_chelsa_past = function(target_path=file.path(getwd(),"CHELSA-TraCE21k"),
+                                vars="bio",
+                                yearago="") {
   timeout_old <- getOption("timeout")
   options(timeout = 1000)
+  
   ## variables sets
   if(vars=="bio") {
     vars=c("bio01",
@@ -117,11 +120,20 @@ download_chelsa_past = function(target_path=getwd(), vars="bio", yearago="") {
 
   for (var in vars) {
     for (time_ID in yearago) {
+      ## set output folder
+      outdir = paste0(target_path, "_time_", time_ID)
+      if (file.exists(outdir)){
+        print("Output dir found")
+      } else {
+        print("Output dir not found. Creating")
+        dir.create(outdir)
+      }
+      
       time_ID = time_IDs[time_IDs$kBP == time_ID, 1]
       name <- paste(c("CHELSA_TraCE21k", var, time_ID, "V1.0.tif"), collapse = "_")
       source_url <- file.path("https://os.zhdk.cloud.switch.ch/envicloud/chelsa/chelsa_V1/chelsa_trace/bio",
                               name)
-      destination <- file.path(target_path, name)
+      destination <- file.path(outdir, name)
       if (!file.exists(destination)) {
         out <- NULL
         out <- tryCatch(download.file(source_url, destination), 
