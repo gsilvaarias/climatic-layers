@@ -23,6 +23,15 @@ download_chelsa = function(target_path=getwd(), vars="")
 {
   timeout_old <- getOption("timeout")
   options(timeout = 1000)
+  
+  ## set output folder
+    if (file.exists(target_path)){
+    print("Output dir found")
+  } else {
+    print("Output dir not found. Creating")
+    dir.create(target_path)
+  }
+  
   ## variables sets
   if(vars=="bio") {
     vars=c("bio10",
